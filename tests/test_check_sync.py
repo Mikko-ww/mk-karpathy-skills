@@ -43,6 +43,18 @@ class CheckSyncTest(unittest.TestCase):
 
         self.assertEqual(problems, [])
 
+    def test_common_snippets_include_detailed_guideline_requirements(self):
+        check_sync = load_check_sync()
+
+        required = [
+            "不为实际上不可能发生的场景添加错误处理",
+            "每一行修改都应该能直接追溯到用户的请求",
+            "强成功标准能让 Agent 独立循环执行",
+        ]
+
+        for snippet in required:
+            self.assertIn(snippet, check_sync.COMMON_SNIPPETS)
+
 
 if __name__ == "__main__":
     unittest.main()
