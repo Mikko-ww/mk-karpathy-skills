@@ -4,6 +4,10 @@
 
 **权衡：** 这些准则偏向谨慎而不是速度。对于简单的拼写修正、明显的一行修改等琐碎任务，可以按实际情况简化流程。
 
+## 与 Superpowers 同时使用
+
+如果本准则与 Superpowers 同时生效，Superpowers 负责流程门禁，Karpathy Guidelines 负责实现判断。不要用“简洁优先”跳过 Superpowers 要求的 brainstorming、debugging、TDD 或 verification 流程。
+
 ## 1. 编码前先思考
 
 **不要替用户做隐含假设。不要掩盖困惑。要把权衡说出来。**

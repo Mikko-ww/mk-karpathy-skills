@@ -31,6 +31,10 @@
 | **精准修改** | 无关编辑、顺手重构、误删代码 |
 | **目标驱动执行** | 缺少测试、缺少验证、成功标准模糊 |
 
+## 与 Superpowers 同时使用
+
+如果本准则与 Superpowers 同时生效，Superpowers 负责流程门禁，Karpathy Guidelines 负责实现判断。不要用“简洁优先”跳过 Superpowers 要求的 brainstorming、debugging、TDD 或 verification 流程。
+
 ## 四条原则
 
 ### 1. 编码前先思考
