@@ -176,6 +176,15 @@ curl https://raw.githubusercontent.com/Mikko-ww/mk-karpathy-skills/main/CLAUDE.m
 - `.github/copilot-instructions.md`
 - `README.md`
 
+提交前运行：
+
+```bash
+python scripts/check-sync.py
+python -m unittest tests/test_check_sync.py
+```
+
+更多贡献说明见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。
+
 ## 核心洞察
 
 来自 Andrej 的核心建议可以概括为：
