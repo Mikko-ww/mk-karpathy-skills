@@ -1,16 +1,16 @@
-# Examples
+# 示例
 
-Real-world code examples demonstrating the four principles. Each example shows what LLMs commonly do wrong and how to fix it.
+这里用接近真实工作的代码示例说明四条原则。每个示例都展示 LLM 常见的错误做法，以及更合适的处理方式。
 
 ---
 
-## 1. Think Before Coding
+## 1. 编码前先思考
 
-### Example 1: Hidden Assumptions
+### 示例 1：隐藏假设
 
-**User Request:** "Add a feature to export user data"
+**用户请求：** “添加一个导出用户数据的功能”
 
-**❌ What LLMs Do (Wrong Assumptions)**
+**❌ LLM 常见错误做法：直接带着错误假设实现**
 
 ```python
 def export_users(format='json'):
@@ -29,36 +29,36 @@ def export_users(format='json'):
     return f"Exported {len(users)} users"
 ```
 
-**Problems:**
-- Assumed it should export ALL users (what about pagination? privacy?)
-- Assumed file location without asking
-- Assumed which fields to include
-- Assumed CSV fieldnames without checking actual data structure
+**问题：**
+- 假设要导出所有用户，没有确认分页、权限和隐私边界。
+- 假设输出文件位置，没有询问。
+- 假设字段范围，没有确认哪些字段可导出。
+- 假设 CSV 字段名，没有检查真实数据结构。
 
-**✅ What Should Happen (Surface Assumptions)**
+**✅ 更合适的做法：先暴露假设**
 
+```text
+实现前我需要先确认几个点：
+
+1. **范围**：导出所有用户，还是导出筛选后的用户？这涉及隐私和权限。
+2. **形式**：你说的“导出”是指：
+   - 浏览器下载文件？
+   - 后台任务生成文件并邮件通知？
+   - API endpoint 直接返回数据？
+3. **字段**：需要导出哪些 user fields？有些字段可能敏感。
+4. **数据量**：通常有多少用户？这会影响实现方式。
+
+最简单的方案是：添加一个返回分页 JSON 的 API endpoint。
+如果需要文件导出，还需要确认更多细节。
+
+你更倾向哪种方式？
 ```
-Before implementing, I need to clarify:
 
-1. **Scope**: Export all users or filtered subset? (privacy implications)
-2. **Format**: You mentioned "export" - did you mean:
-   - Download file in browser?
-   - Background job with email notification?
-   - API endpoint returning data?
-3. **Fields**: Which user fields? (some might be sensitive)
-4. **Volume**: How many users typically? (affects approach)
+### 示例 2：多种解释
 
-Simplest approach: Add an API endpoint that returns paginated JSON.
-Would need more info for file-based exports.
+**用户请求：** “让搜索更快”
 
-What's your preference?
-```
-
-### Example 2: Multiple Interpretations
-
-**User Request:** "Make the search faster"
-
-**❌ What LLMs Do (Pick Silently)**
+**❌ LLM 常见错误做法：默默选择一种解释**
 
 ```python
 # Adds caching, database indexes, and async processing
@@ -68,39 +68,39 @@ async def search(query: str) -> List[Result]:
     # ... 200 lines of optimization code
 ```
 
-**✅ What Should Happen**
+**✅ 更合适的做法**
 
-```
-"Make the search faster" could mean:
+```text
+“让搜索更快”可能指几件不同的事：
 
-1. **Faster response time** (< 100ms instead of 500ms)
-   - Add database indexes
-   - Cache frequent queries
-   - Estimated effort: 2 hours
+1. **响应时间更短**，比如从 500ms 降到 100ms 以内
+   - 添加 database indexes
+   - 缓存高频查询
+   - 预计工作量：2 小时
 
-2. **Handle more concurrent searches** (throughput)
-   - Add async/await
-   - Connection pooling
-   - Estimated effort: 4 hours
+2. **支持更多并发搜索**，也就是提升 throughput
+   - 引入 async/await
+   - 调整 connection pooling
+   - 预计工作量：4 小时
 
-3. **Faster perceived speed** (UX)
-   - Show partial results immediately
-   - Progressive loading
-   - Estimated effort: 3 hours
+3. **感知速度更快**，也就是改善 UX
+   - 先展示部分结果
+   - progressive loading
+   - 预计工作量：3 小时
 
-Current search takes ~500ms for typical queries. 
-Which aspect matters most for your use case?
+目前典型搜索耗时大约 500ms。
+你最关心哪一类“更快”？
 ```
 
 ---
 
-## 2. Simplicity First
+## 2. 简洁优先
 
-### Example 1: Over-abstraction
+### 示例 1：过度抽象
 
-**User Request:** "Add a function to calculate discount"
+**用户请求：** “添加一个计算折扣的函数”
 
-**❌ What LLMs Do (Overengineered)**
+**❌ LLM 常见错误做法：过度设计**
 
 ```python
 from abc import ABC, abstractmethod
@@ -146,7 +146,7 @@ class DiscountCalculator:
 # Usage requires 30+ lines of setup for a simple calculation
 ```
 
-**✅ What Should Happen (Simple)**
+**✅ 更合适的做法：先保持简单**
 
 ```python
 def calculate_discount(amount: float, percent: float) -> float:
@@ -157,13 +157,13 @@ def calculate_discount(amount: float, percent: float) -> float:
 discount = calculate_discount(100.0, 10.0)  # $10 off
 ```
 
-**When to add complexity:** Only when you actually need multiple discount types. If that requirement comes later, refactor then.
+**什么时候增加复杂度：** 只有在真的需要多种 discount types 时再引入抽象。如果需求之后出现，再重构也不晚。
 
-### Example 2: Speculative Features
+### 示例 2：提前添加功能
 
-**User Request:** "Save user preferences to database"
+**用户请求：** “把用户偏好保存到数据库”
 
-**❌ What LLMs Do (Unnecessary Features)**
+**❌ LLM 常见错误做法：实现用户没要求的能力**
 
 ```python
 class PreferenceManager:
@@ -207,7 +207,7 @@ class PreferenceManager:
         pass
 ```
 
-**✅ What Should Happen (Just What Was Asked)**
+**✅ 更合适的做法：只做被要求的事**
 
 ```python
 def save_preferences(db, user_id: int, preferences: dict):
@@ -218,17 +218,17 @@ def save_preferences(db, user_id: int, preferences: dict):
     )
 ```
 
-**Add later if needed:** Caching (when performance matters), validation (when bad data appears), merging (when requirement emerges).
+**之后再加也不迟：** 性能真的有问题时再加 caching；出现坏数据时再加 validation；需求明确时再加 merging。
 
 ---
 
-## 3. Surgical Changes
+## 3. 精准修改
 
-### Example 1: Drive-by Refactoring
+### 示例 1：顺手重构
 
-**User Request:** "Fix the bug where empty emails crash the validator"
+**用户请求：** “修复空 email 会导致 validator 崩溃的问题”
 
-**❌ What LLMs Do (Too Much)**
+**❌ LLM 常见错误做法：改得太多**
 
 ```diff
   def validate_user(user_data):
@@ -260,13 +260,13 @@ def save_preferences(db, user_id: int, preferences: dict):
       return True
 ```
 
-**Problems:**
-- "Improved" email validation beyond the bug fix
-- Added username validation nobody asked for
-- Changed comments
-- Added docstring
+**问题：**
+- 在修 bug 的同时“改进”了 email validation。
+- 添加了用户没有要求的 username validation。
+- 改了注释。
+- 添加了 docstring。
 
-**✅ What Should Happen (Surgical)**
+**✅ 更合适的做法：精准修改**
 
 ```diff
   def validate_user(user_data):
@@ -288,13 +288,13 @@ def save_preferences(db, user_id: int, preferences: dict):
       return True
 ```
 
-**Only changed:** The specific lines that fix empty email handling.
+**只改变：** 修复空 email 处理所必需的几行。
 
-### Example 2: Style Drift
+### 示例 2：风格漂移
 
-**User Request:** "Add logging to the upload function"
+**用户请求：** “给 upload function 添加 logging”
 
-**❌ What LLMs Do (Reformat Everything)**
+**❌ LLM 常见错误做法：顺手重排所有东西**
 
 ```diff
 - def upload_file(file_path, destination):
@@ -329,14 +329,14 @@ def save_preferences(db, user_id: int, preferences: dict):
           return False
 ```
 
-**Problems:**
-- Changed quote style ('' to "")
-- Added type hints nobody asked for
-- Added docstring
-- Reformatted whitespace
-- Changed boolean return logic
+**问题：**
+- 把单引号改成了双引号。
+- 添加了用户没有要求的 type hints。
+- 添加了 docstring。
+- 改了空行和排版。
+- 改写了 boolean return 逻辑。
 
-**✅ What Should Happen (Match Existing Style)**
+**✅ 更合适的做法：匹配现有风格**
 
 ```diff
 + import logging
@@ -363,58 +363,58 @@ def save_preferences(db, user_id: int, preferences: dict):
           return False
 ```
 
-**Matched:** Single quotes, no type hints, existing boolean pattern, spacing style.
+**匹配现有代码：** 单引号、无 type hints、保留原有 boolean pattern、保留原有 spacing style。
 
 ---
 
-## 4. Goal-Driven Execution
+## 4. 目标驱动执行
 
-### Example 1: Vague vs. Verifiable
+### 示例 1：模糊目标 vs. 可验证目标
 
-**User Request:** "Fix the authentication system"
+**用户请求：** “修复 authentication system”
 
-**❌ What LLMs Do (Vague Approach)**
+**❌ LLM 常见错误做法：计划很空泛**
 
-```
-I'll fix the authentication system by:
-1. Reviewing the code
-2. Identifying issues
-3. Making improvements
-4. Testing the changes
+```text
+我会这样修复 authentication system：
+1. 阅读代码
+2. 找出问题
+3. 做一些改进
+4. 测试改动
 
-[Proceeds to make changes without clear success criteria]
-```
-
-**✅ What Should Happen (Verifiable Goals)**
-
-```
-To "fix authentication," I need to define success criteria. 
-What specific issue are we solving?
-
-If the issue is "users stay logged in after password change":
-
-Plan:
-1. Write test: Change password → verify old session invalidated
-   Verify: Test fails (reproduces bug)
-
-2. Implement: Invalidate sessions on password change
-   Verify: Test passes
-
-3. Check edge cases: Multiple active sessions, concurrent changes
-   Verify: Additional tests pass
-
-4. Verify no regression: Existing auth tests still pass
-   Verify: Full test suite green
-
-Current test coverage for auth: [shows coverage]
-What's the specific auth issue you're seeing?
+[随后在没有明确成功标准的情况下直接修改]
 ```
 
-### Example 2: Multi-Step with Verification
+**✅ 更合适的做法：定义可验证目标**
 
-**User Request:** "Add rate limiting to the API"
+```text
+“修复 authentication”需要先定义成功标准。
+我们具体要解决哪个问题？
 
-**❌ What LLMs Do (All at Once)**
+如果问题是“用户修改密码后旧 session 仍然有效”：
+
+计划：
+1. 写测试：修改密码 -> 验证旧 session 失效
+   验证：测试失败，并且能复现 bug
+
+2. 实现：修改密码时 invalidate sessions
+   验证：测试通过
+
+3. 检查边界情况：多个 active sessions、并发修改
+   验证：补充测试通过
+
+4. 验证无回归：现有 auth tests 仍然通过
+   验证：完整 test suite green
+
+当前 auth test coverage：[展示 coverage]
+你实际遇到的 authentication 问题是哪一个？
+```
+
+### 示例 2：多步骤任务也要逐步验证
+
+**用户请求：** “给 API 添加 rate limiting”
+
+**❌ LLM 常见错误做法：一次性做完所有东西**
 
 ```python
 # Implements full rate limiting with Redis, multiple strategies,
@@ -422,40 +422,40 @@ What's the specific auth issue you're seeing?
 # No clear verification steps
 ```
 
-**✅ What Should Happen (Incremental with Verification)**
+**✅ 更合适的做法：分步实现并验证**
 
+```text
+rate limiting 的计划：
+
+1. 添加基础 in-memory rate limiting，先覆盖单个 endpoint
+   验证：
+   - 测试：100 个请求 -> 前 10 个成功，其余返回 429
+   - 手动：curl endpoint 11 次，看到 rate limit error
+
+2. 提取成 middleware，应用到所有 endpoints
+   验证：
+   - 测试：rate limits 同时作用于 /users 和 /posts
+   - 现有 endpoint tests 仍然通过
+
+3. 添加 Redis backend，用于 multi-server 场景
+   验证：
+   - 测试：app restart 后 rate limit 仍然符合预期
+   - 测试：两个 app instances 共享 rate limit counter
+
+4. 添加配置，支持 per-endpoint rates
+   验证：
+   - 测试：/search 允许 10/min，/users 允许 100/min
+   - config file 能正确解析
+
+每一步都可以独立验证，也可以独立部署。
+先从第 1 步开始吗？
 ```
-Plan for rate limiting:
 
-1. Add basic in-memory rate limiting (single endpoint)
-   Verify: 
-   - Test: 100 requests → first 10 succeed, rest get 429
-   - Manual: curl endpoint 11 times, see rate limit error
+### 示例 3：测试先行验证
 
-2. Extract to middleware (apply to all endpoints)
-   Verify:
-   - Test: Rate limits apply to /users and /posts
-   - Existing endpoint tests still pass
+**用户请求：** “sorting 在有重复 scores 时会出问题”
 
-3. Add Redis backend (for multi-server)
-   Verify:
-   - Test: Rate limit persists across app restarts
-   - Test: Two app instances share rate limit counter
-
-4. Add configuration (rates per endpoint)
-   Verify:
-   - Test: /search allows 10/min, /users allows 100/min
-   - Config file parsed correctly
-
-Each step is independently verifiable and deployable.
-Start with step 1?
-```
-
-### Example 3: Test-First Verification
-
-**User Request:** "The sorting breaks when there are duplicate scores"
-
-**❌ What LLMs Do (Fix Without Reproducing)**
+**❌ LLM 常见错误做法：没有复现就直接修**
 
 ```python
 # Immediately changes sort logic without confirming the bug
@@ -463,7 +463,7 @@ def sort_scores(scores):
     return sorted(scores, key=lambda x: (-x['score'], x['name']))
 ```
 
-**✅ What Should Happen (Reproduce First)**
+**✅ 更合适的做法：先复现问题**
 
 ```python
 # 1. First, write a test that reproduces the issue
@@ -483,7 +483,7 @@ def test_sort_with_duplicate_scores():
     assert result[1]['score'] == 100
     assert result[2]['score'] == 90
 
-# Verify: Run test 10 times → fails with inconsistent ordering
+# Verify: Run test 10 times -> fails with inconsistent ordering
 
 # 2. Now fix with stable sort
 def sort_scores(scores):
@@ -495,28 +495,31 @@ def sort_scores(scores):
 
 ---
 
-## Anti-Patterns Summary
+## 反模式总结
 
-| Principle | Anti-Pattern | Fix |
-|-----------|-------------|-----|
-| Think Before Coding | Silently assumes file format, fields, scope | List assumptions explicitly, ask for clarification |
-| Simplicity First | Strategy pattern for single discount calculation | One function until complexity is actually needed |
-| Surgical Changes | Reformats quotes, adds type hints while fixing bug | Only change lines that fix the reported issue |
-| Goal-Driven | "I'll review and improve the code" | "Write test for bug X → make it pass → verify no regressions" |
+| 原则 | 反模式 | 修正方式 |
+| --- | --- | --- |
+| 编码前先思考 | 默默假设文件格式、字段、范围 | 明确列出假设，并请求澄清 |
+| 简洁优先 | 为单个折扣计算引入 strategy pattern | 先用一个函数，等复杂度真的出现再抽象 |
+| 精准修改 | 修 bug 时顺手改引号、加 type hints、重排格式 | 只改能直接解决问题的行 |
+| 目标驱动执行 | “我会 review 并 improve code” | “为 bug X 写测试 -> 让测试通过 -> 验证无回归” |
 
-## Key Insight
+## 核心洞察
 
-The "overcomplicated" examples aren't obviously wrong—they follow design patterns and best practices. The problem is **timing**: they add complexity before it's needed, which:
+“过度复杂”的示例并不是看起来明显错误。它们往往使用了 design patterns 和所谓 best practices。真正的问题是**时机**：在复杂度真正出现之前，就提前引入复杂度。
 
-- Makes code harder to understand
-- Introduces more bugs
-- Takes longer to implement
-- Harder to test
+这会带来几个后果：
 
-The "simple" versions are:
-- Easier to understand
-- Faster to implement
-- Easier to test
-- Can be refactored later when complexity is actually needed
+- 代码更难理解。
+- bug 面更大。
+- 实现时间更长。
+- 测试更困难。
 
-**Good code is code that solves today's problem simply, not tomorrow's problem prematurely.**
+简单版本的好处是：
+
+- 更容易理解。
+- 更快实现。
+- 更容易测试。
+- 当复杂度真的出现时，仍然可以重构。
+
+**好代码不是提前解决明天可能出现的问题，而是用简单方式解决今天真实存在的问题。**
