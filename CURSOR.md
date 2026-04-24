@@ -29,7 +29,10 @@
 修改四条原则时，请保持以下文件同步：
 
 - [`CLAUDE.md`](CLAUDE.md)
+- [`AGENTS.md`](AGENTS.md)
+- [`GEMINI.md`](GEMINI.md)
 - [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)
+- [`.github/copilot-instructions.md`](.github/copilot-instructions.md)
 - [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)
 
 如果用户文档也需要同步，请同时更新 [`README.md`](README.md) 和 [`EXAMPLES.md`](EXAMPLES.md)。

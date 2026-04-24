@@ -145,10 +145,10 @@ curl https://raw.githubusercontent.com/Mikko-ww/mk-karpathy-skills/main/CLAUDE.m
 | --- | --- | --- |
 | Claude Code | `.claude-plugin/` + `skills/karpathy-guidelines/SKILL.md` | 已内置 |
 | Cursor | `.cursor/rules/karpathy-guidelines.mdc` | 已内置 |
-| 通用项目级 Agent | `CLAUDE.md` 或根目录指令文件 | 已内置 |
-| GitHub Copilot | `.github/copilot-instructions.md`，也可结合 `AGENTS.md`、`CLAUDE.md` 或 `GEMINI.md` | 待新增适配文件 |
-| Gemini CLI | `GEMINI.md`，可引用或同步本准则内容 | 待新增适配文件 |
-| Codex / 其他支持 Agent Skills 的工具 | 复制 `skills/karpathy-guidelines/SKILL.md` 到对应个人或项目 skills 目录 | 可手动安装 |
+| 通用项目级 Agent | `AGENTS.md`、`CLAUDE.md` 或其他根目录指令文件 | 已内置 |
+| GitHub Copilot | `.github/copilot-instructions.md`，也可结合 `AGENTS.md`、`CLAUDE.md` 或 `GEMINI.md` | 已内置 |
+| Gemini CLI | `GEMINI.md` | 已内置 |
+| Codex / 其他支持 Agent Skills 的工具 | `AGENTS.md`，或复制 `skills/karpathy-guidelines/SKILL.md` 到对应个人或项目 skills 目录 | 已内置项目级入口，可手动安装 skill |
 | Cline、Roo Code、Continue、Windsurf 等 | 使用它们支持的 rules / instructions 文件承载同一套准则 | 待逐个平台验证 |
 
 扩展到新 Agent 时，按这个顺序做：
@@ -163,6 +163,18 @@ curl https://raw.githubusercontent.com/Mikko-ww/mk-karpathy-skills/main/CLAUDE.m
 
 - GitHub Copilot custom instructions：[Adding repository custom instructions](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
 - Gemini CLI context files：[Provide context with GEMINI.md files](https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html)
+
+## 适配文件维护规则
+
+修改四条原则或 Superpowers 边界说明时，请同步检查这些入口：
+
+- `skills/karpathy-guidelines/SKILL.md`
+- `CLAUDE.md`
+- `AGENTS.md`
+- `GEMINI.md`
+- `.cursor/rules/karpathy-guidelines.mdc`
+- `.github/copilot-instructions.md`
+- `README.md`
 
 ## 核心洞察
 
