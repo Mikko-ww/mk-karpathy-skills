@@ -102,12 +102,12 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 在 Claude Code 中，首先添加插件市场：
 ```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
+/plugin marketplace add Mikko-ww/mk-karpathy-skills
 ```
 
 然后安装插件：
 ```
-/plugin install andrej-karpathy-skills@karpathy-skills
+/plugin install mk-karpathy-skills@karpathy-skills
 ```
 
 这会将指南安装为 Claude Code 插件，使其在你所有项目中可用。
@@ -116,13 +116,13 @@ LLM 经常默默选择一种解释然后执行。这个原则强制明确推理�
 
 新项目：
 ```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
+curl -o CLAUDE.md https://raw.githubusercontent.com/Mikko-ww/mk-karpathy-skills/main/CLAUDE.md
 ```
 
 已有项目（追加）：
 ```bash
 echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
+curl https://raw.githubusercontent.com/Mikko-ww/mk-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
 ```
 
 ## 在 Cursor 中使用
