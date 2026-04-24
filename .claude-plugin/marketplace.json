@@ -5,21 +5,22 @@
     "name": "Mikko-ww"
   },
   "metadata": {
-    "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations",
+    "description": "用于减少 LLM 编码常见失误的行为准则，灵感来自 Andrej Karpathy 的观察",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "mk-karpathy-skills",
       "source": "./",
-      "description": "Behavioral guidelines to reduce common LLM coding mistakes: Think Before Coding, Simplicity First, Surgical Changes, Goal-Driven Execution",
+      "description": "用于减少 LLM 编码常见失误的行为准则：编码前先思考、简洁优先、精准修改、目标驱动执行",
       "version": "1.0.0",
       "author": {
         "name": "Mikko-ww"
       },
       "keywords": [
-        "guidelines",
-        "best-practices",
+        "准则",
+        "最佳实践",
+        "编码",
         "coding",
         "karpathy"
       ],

@@ -1,11 +1,11 @@
 {
   "name": "mk-karpathy-skills",
-  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls",
+  "description": "用于减少 LLM 编码常见失误的行为准则，灵感来自 Andrej Karpathy 对 LLM 编码陷阱的观察",
   "version": "1.0.0",
   "author": {
     "name": "Mikko-ww"
   },
   "license": "MIT",
-  "keywords": ["guidelines", "best-practices", "coding", "karpathy"],
+  "keywords": ["准则", "最佳实践", "编码", "karpathy", "coding"],
   "skills": ["./skills/karpathy-guidelines"]
 }
