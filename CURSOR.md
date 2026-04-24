@@ -32,4 +32,4 @@
 - [`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)
 - [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md)
 
-如果用户文档也需要同步，请同时更新 [`README.md`](README.md)、[`README.zh.md`](README.zh.md) 和 [`EXAMPLES.md`](EXAMPLES.md)。
+如果用户文档也需要同步，请同时更新 [`README.md`](README.md) 和 [`EXAMPLES.md`](EXAMPLES.md)。

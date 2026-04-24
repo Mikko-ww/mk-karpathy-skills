@@ -6,10 +6,6 @@
 
 这个仓库提供一组中文优先的 Agent 行为准则，用来改善 Claude Code、Cursor 和其他 coding agents 的协作质量。内容源自 [Andrej Karpathy 对 LLM 编码陷阱的观察](https://x.com/karpathy/status/2015883857489522876)，重点解决“错误假设、过度复杂、无关改动、缺少验证”这些高频问题。
 
-中文主文档：`README.md`
-
-中文副本：[`README.zh.md`](./README.zh.md)
-
 ## 问题所在
 
 来自 Andrej 的观察可以概括为三类问题：
@@ -140,6 +136,33 @@ curl https://raw.githubusercontent.com/Mikko-ww/mk-karpathy-skills/main/CLAUDE.m
 本仓库包含已提交的 Cursor project rule：[`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)。打开本项目时，该规则会因为 `alwaysApply: true` 自动生效。
 
 更多说明见 [CURSOR.md](CURSOR.md)，包括如何复制到其他项目，以及它与 Claude Code plugin 的关系。
+
+## 让更多 Agent 使用
+
+本仓库的核心内容应该保持“一份权威源，多种适配入口”。当前建议以 [`skills/karpathy-guidelines/SKILL.md`](skills/karpathy-guidelines/SKILL.md) 作为 skill 语义源，以 [`CLAUDE.md`](CLAUDE.md) 作为通用项目指令源。新增平台时，优先从这两份内容同步，不要手写一份新的独立版本。
+
+| Agent / 工具 | 推荐入口 | 当前状态 |
+| --- | --- | --- |
+| Claude Code | `.claude-plugin/` + `skills/karpathy-guidelines/SKILL.md` | 已内置 |
+| Cursor | `.cursor/rules/karpathy-guidelines.mdc` | 已内置 |
+| 通用项目级 Agent | `CLAUDE.md` 或根目录指令文件 | 已内置 |
+| GitHub Copilot | `.github/copilot-instructions.md`，也可结合 `AGENTS.md`、`CLAUDE.md` 或 `GEMINI.md` | 待新增适配文件 |
+| Gemini CLI | `GEMINI.md`，可引用或同步本准则内容 | 待新增适配文件 |
+| Codex / 其他支持 Agent Skills 的工具 | 复制 `skills/karpathy-guidelines/SKILL.md` 到对应个人或项目 skills 目录 | 可手动安装 |
+| Cline、Roo Code、Continue、Windsurf 等 | 使用它们支持的 rules / instructions 文件承载同一套准则 | 待逐个平台验证 |
+
+扩展到新 Agent 时，按这个顺序做：
+
+1. 确认该工具实际读取哪种 instructions / rules / skills 文件。
+2. 从 `SKILL.md` 或 `CLAUDE.md` 同步正文，不改变四条原则含义。
+3. 保留平台需要的 frontmatter、文件名、命令、路径和英文技术字段。
+4. 在 README 中补充安装方式和验证状态。
+5. 实际打开该 Agent，确认它会读取对应文件。
+
+可参考的官方文档：
+
+- GitHub Copilot custom instructions：[Adding repository custom instructions](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
+- Gemini CLI context files：[Provide context with GEMINI.md files](https://google-gemini.github.io/gemini-cli/docs/cli/gemini-md.html)
 
 ## 核心洞察
 
