@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check that agent instruction files keep the core guidelines in sync."""
+"""检查多份 agent 指令文件是否与核心准则保持同步。"""
 
 from pathlib import Path
 import sys
