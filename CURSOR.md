@@ -21,7 +21,7 @@
 
 ## Claude Code 与 Cursor 的区别
 
-- **Claude Code：** 按 [`README.md`](README.md) 中的 plugin marketplace 方式安装；plugin 会暴露本仓库的 skill。按项目使用时，也可以依赖 `CLAUDE.md`。
+- **Claude Code：** 按项目使用 [`CLAUDE.md`](CLAUDE.md)；仓库也保留 `.claude-plugin/` 作为本地 plugin 元数据。
 - **Cursor：** 使用已提交的 `.cursor/rules/` 文件。Cursor 默认不会读取 `.claude-plugin/` 或 `CLAUDE.md`。
 
 ## 贡献者注意事项

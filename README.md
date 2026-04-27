@@ -100,23 +100,7 @@ LLM 经常会默默选择一种解释，然后直接实现。这个原则要求 
 
 ## 安装
 
-### 选项 A：Claude Code Plugin（推荐）
-
-在 Claude Code 中先添加 marketplace：
-
-```text
-/plugin marketplace add Mikko-ww/mk-karpathy-skills
-```
-
-然后安装 plugin：
-
-```text
-/plugin install mk-karpathy-skills@karpathy-skills
-```
-
-这样会把本仓库的 guidelines 作为 Claude Code plugin 安装，并在所有项目中提供对应 skill。
-
-### 选项 B：按项目使用 `CLAUDE.md`
+### 在项目中使用 `CLAUDE.md`
 
 新项目：
 
